@@ -1,0 +1,103 @@
+<p-toast position="top-center"></p-toast>
+
+<div class="login-container">
+  <p-card class="login-card">
+    <ng-template pTemplate="header">
+      <div class="login-header">
+        <i class="pi pi-user login-icon"></i>
+        <span>Register</span>
+      </div>
+    </ng-template>
+
+    <form class="login-form" #registerForm="ngForm">
+      <!-- Username Field -->
+      <div class="form-field">
+        <label for="username">User Name</label>
+        <input
+          id="username"
+          type="text"
+          pInputText
+          [(ngModel)]="username"
+          name="username"
+          required
+          class="full-width-input"
+          placeholder="Enter your username"
+          #usernameRef="ngModel"
+        />
+        <small
+          class="p-error"
+          *ngIf="usernameRef.invalid && usernameRef.touched"
+        >
+          Username is required.
+        </small>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          [(ngModel)]="email"
+          name="email"
+          required
+          email
+          class="full-width-input"
+          placeholder="example@domain.com"
+          #emailRef="ngModel"
+        />
+        <small class="p-error" *ngIf="emailRef.invalid && emailRef.touched">
+          <span *ngIf="emailRef.errors?.['required']">Email is required.</span>
+          <span *ngIf="emailRef.errors?.['email']">Invalid email format.</span>
+        </small>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          pInputText
+          [(ngModel)]="password"
+          name="password"
+          required
+          minlength="6"
+          class="full-width-input"
+          placeholder="Enter your password"
+          #passwordRef="ngModel"
+        />
+        <small
+          class="p-error"
+          *ngIf="passwordRef.invalid && passwordRef.touched"
+        >
+          <span *ngIf="passwordRef.errors?.['required']"
+            >Password is required.</span
+          >
+          <span *ngIf="passwordRef.errors?.['minlength']">
+            Password must be at least 6 characters.
+          </span>
+        </small>
+      </div>
+
+      <!-- Register Button -->
+      <button
+        pButton
+        type="button"
+        label="Register"
+        icon="pi pi-user-plus"
+        class="login-button"
+        [disabled]="registerForm.invalid"
+        (click)="register()"
+      ></button>
+
+      <p-divider align="center">OR</p-divider>
+
+      <div class="register-link">
+        <span>Already have an account?</span>
+        <a routerLink="/login">Login</a>
+      </div>
+    </form>
+  </p-card>
+</div>

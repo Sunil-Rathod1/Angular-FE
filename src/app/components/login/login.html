@@ -1,0 +1,76 @@
+<p-toast position="top-center"></p-toast>
+
+<div class="login-container">
+  <p-card class="login-card">
+    <ng-template pTemplate="header">
+      <div class="login-header">
+        <i class="pi pi-user login-icon"></i>
+        <span>Login</span>
+      </div>
+    </ng-template>
+
+    <form class="login-form" #loginForm="ngForm">
+      <!-- Username Field -->
+      <div class="form-field">
+        <label for="username">User Name</label>
+        <input
+          id="username"
+          type="text"
+          pInputText
+          [(ngModel)]="username"
+          name="username"
+          required
+          class="full-width-input"
+          placeholder="Enter your username"
+          #usernameRef="ngModel"
+        />
+        <small
+          class="p-error"
+          *ngIf="usernameRef.invalid && usernameRef.touched"
+        >
+          Username is required.
+        </small>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          pInputText
+          [(ngModel)]="password"
+          name="password"
+          required
+          class="full-width-input"
+          placeholder="Enter your password"
+          #passwordRef="ngModel"
+        />
+        <small
+          class="p-error"
+          *ngIf="passwordRef.invalid && passwordRef.touched"
+        >
+          Password is required.
+        </small>
+      </div>
+
+      <!-- Login Button -->
+      <button
+        pButton
+        type="button"
+        label="Login"
+        icon="pi pi-sign-in"
+        class="login-button"
+        [disabled]="loginForm.invalid"
+        (click)="login()"
+      ></button>
+
+      <p-divider align="center">OR</p-divider>
+
+      <div class="register-link">
+        <span>Don't have an account?</span>
+        <a routerLink="/register">Register</a>
+      </div>
+    </form>
+  </p-card>
+</div>

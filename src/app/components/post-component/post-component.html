@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="post-container">
+  <!-- New Post Button -->
+  <div class="action-bar">
+    <button
+      pButton
+      icon="pi pi-plus"
+      label="New Post"
+      class="p-button-primary"
+      (click)="showDialog = true"
+    ></button>
+  </div>
+
+  <!-- Post List Table -->
+  <p-table
+    [value]="posts"
+    [paginator]="true"
+    [rows]="5"
+    responsiveLayout="scroll"
+    class="post-table"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-post>
+      <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.content }}</td>
+        <td class="action-buttons">
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-info mr-2"
+            (click)="editPost(post)"
+            tooltip="Edit"
+          ></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+            (click)="deletePost(post._id)"
+            tooltip="Delete"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Dialog for New Post Form -->
+  <p-dialog
+    header="Create New Post"
+    [(visible)]="showDialog"
+    [modal]="true"
+    [style]="{ width: '90%', maxWidth: '450px' }"
+    [closable]="true"
+    [breakpoints]="{ '960px': '95vw', '640px': '100vw' }"
+  >
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="title"
+        placeholder="Post Title"
+        pInputText
+        class="p-inputtext-lg w-full"
+      />
+      <textarea
+        rows="5"
+        [(ngModel)]="content"
+        placeholder="Post Content"
+        pInputTextarea
+        class="w-full"
+      ></textarea>
+      <button
+        pButton
+        label="Submit"
+        (click)="createPost()"
+        class="p-button-success w-full"
+      ></button>
+    </div>
+  </p-dialog>
+</div>
